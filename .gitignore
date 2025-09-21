@@ -1,0 +1,34 @@
+# VSCode settings
+.vscode/
+*.code-workspace
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+out/
+
+# Python
+__pycache__/
+*.pyc
+
+# EagleCAD backup files
+*.s#*
+*.b#*
+*.sch~
+*.brd~
+*.bak
+
+# Misc
+*.tmp
+*.swp
+*.swo

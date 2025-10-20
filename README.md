@@ -1,12 +1,19 @@
 # NES2MSX
 
-## Descripción
-Conversor de mandos de NES (connector de 7 pines) a estándar MSX.
+## Description
+Converter for NES controllers (7-pin connector) to MSX standard.
 
-## Agradecimientos
-- David A. Mellis por su librería de placas para los ATtiny (https://github.com/damellis/attiny).
-- Josh Marinacci por su librería NESpad (https://github.com/joshmarinacci/nespad-arduino).
+## Acknowledgments
+- David A. Mellis for his ATtiny board library (https://github.com/damellis/attiny).
+- Josh Marinacci for his NESpad library (https://github.com/joshmarinacci/nespad-arduino).
 
-## ¿Porqué?
-Este proyecto surgió debido a la dificultad de poder encontrar mandos cómodos y accesibles (🤑) para los ordenadores de MSX.
+## Why?
+This project was born out of the difficulty of finding comfortable and accessible (and also affordable 🤑) controllers for MSX computers.  
+But instead of destroying a NES controller, I decided to make this converter — that way I could also use other NES-style controllers such as those from 8Bitdo.
 
+## Images
+### PCB
+![Image](images/pcb_top.jpg "PCB top side")  
+![Image](images/pcb_bottom.jpg "PCB bottom side")
+### Assembled PCB
+![Image](images/pcb_ensambled.jpg "Assembled PCB top side")

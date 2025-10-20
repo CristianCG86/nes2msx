@@ -1,4 +1,4 @@
-#include <NESpad.h>
+#include "nespad.h"
 
 /**
   ---- Prerequisites -------------------------------------------
@@ -6,14 +6,12 @@
   ATtiny boards from David A. Mellis
   https://github.com/damellis/attiny
 
-  And select:
-    Board -> attiny -> ATtiny 24/44/84
-    Clock -> Internal 8 Mhz
-    Processor -> ATtiny44
 
+  ---- Arduino IDE configuration -------------------------------
 
-  NESpad library from Josh Marinacci
-  https://github.com/joshmarinacci/nespad-arduino
+  Boards -> attiny -> ATtiny 24/44/84
+  Clock -> Internal 8 MHz
+  Processor -> ATtiny 44
 
 
   ---- Wire connection -----------------------------------------
@@ -32,17 +30,17 @@
     │  1  │  VCC [1]  │               │  3  │  PA2 [11] │   
     │  2  │  PB1 [3]  │               │  4  │  PA3 [10] │   
     │  3  │  PB0 [2]  │               │  5  │  VCC [1]  │   
-    │  4  │  PB2 [5]  │               │  6  │  PA5 [8]  │   
-    │  5  │  GND [14] │               │  7  │  PA4 [9]  │   
+    │  4  │  PB2 [5]  │               │  6  │  PA5 [9]  │   
+    │  5  │  GND [14] │               │  7  │  PA4 [8]  │   
     │  6  │  NC       │               │  8  │  NC       │   
     │  7  │  NC       │               │  9  │  GND [14] │   
     └─────┴───────────┘               └─────┴───────────┘   
 */
 
 //  Turbo speed config
-#define TURBO_INITIAL_SPEED 20
-#define TURBO_MAX_SPEED 20
-#define TURBO_INCREASE_SPEED 10
+#define TURBO_INITIAL_SPEED 2
+#define TURBO_MAX_SPEED 2
+#define TURBO_INCREASE_SPEED 1
 
 //  Turbo variables
 uint8_t turbo_select_counter;
@@ -54,7 +52,6 @@ uint8_t turbo_start_counter;
 uint8_t turbo_start_toggler;
 uint8_t turbo_start_pushed;
 int8_t turbo_start_speed;
-
 
 //  NES controller reader
 NESpad nintendo = NESpad(10, 9, 8);
@@ -85,8 +82,8 @@ void loop() {
   state = nintendo.buttons();
 
   // Reorder buttons
-  state_processed = ((state & (1 << 0)) << 5) |  // A -> bit5
-           ((state & (1 << 1)) << 3) |  // B -> bit4
+  state_processed = ((state & (1 << 1)) << 3) |  // B -> bit4
+           ((state & (1 << 0)) << 5) |  // A -> bit5
            ((state & (1 << 7)) >> 4) |  // R -> bit3
            ((state & (1 << 6)) >> 4) |  // L -> bit2
            ((state & (1 << 5)) >> 4) |  // D -> bit1
@@ -100,7 +97,7 @@ void loop() {
     turbo_select_pushed = 0;
   }
 
-  if(turbo_select_toggler == 1 && (turbo_select_counter >> 3) == 0) {
+  if(turbo_select_toggler == 1 && (turbo_select_counter >> 1) == 0) {
     state_processed = state_processed & 0b11101111;
   }
 
@@ -112,7 +109,7 @@ void loop() {
     turbo_start_pushed = 0;
   }
 
-  if(turbo_start_toggler == 1 && (turbo_start_counter >> 3) == 0) {
+  if(turbo_start_toggler == 1 && (turbo_start_counter >> 1) == 0) {
     state_processed = state_processed & 0b11011111;
   }
 
@@ -126,7 +123,7 @@ void loop() {
   turbo_start_counter++;
   if(turbo_start_counter > turbo_start_speed) turbo_start_counter = 0;
   
-  delay(5);
+  delay(3);
 }
 
 //  Turbo operations (A)
